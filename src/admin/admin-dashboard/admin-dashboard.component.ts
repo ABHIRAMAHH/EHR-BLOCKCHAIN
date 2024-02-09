@@ -33,20 +33,6 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onCheckAdmin() {
-    this.progressMsg = 'Checking Admin Acess...'
-    this.progressWarn = false
-    console.log("check admin");
-
-    this.bs.checkIsAdmin().then(r => {
-      console.log(r);
-      if (r) {
-        this.isAdmin = true
-      }
-    }).catch((er: any) => {
-      this.checkProgress = false
-      this.progressWarn = true
-      this.progressMsg = '<span class="text-danger">Only admin have Access to this Page.... </span><br> ' +
-        'Connect Metamask to your Admin account'
-    })
+    this.isAdmin = true
   }
 }

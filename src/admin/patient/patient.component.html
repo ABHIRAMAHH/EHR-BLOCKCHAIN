@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <!-- <div class="container mb-4">
+  <div class="container mb-4">
     <form [noValidate]="false" #docForm="ngForm" (ngSubmit)="onSubmit()">
       <h3 class="h3 my-3">Add Patient to the Network</h3>
       <div class="row form-row">
@@ -32,7 +32,7 @@
         <div class="col-12">
           <div class="form-group">
             <label>Patient Id<sup class="fas fa-asterisk fw-normal text-danger" style="font-size: 8px;"></sup></label>
-            <input [(ngModel)]="model.patID" name="docID" id="accid" type="text" class="form-control"
+            <input [(ngModel)]="model.patID" autocomplete="off" name="docID" id="accid" type="text" class="form-control"
               placeholder="patient account id" required />
           </div>
         </div>
@@ -55,12 +55,6 @@
         Add Patient
       </button>
     </form>
-  </div> -->
-  <div class="container">
-    NOT AVAILABLE
-    <br />
-    contact for full project:
-    <a href="mailto:tshamil90@gmail.com?subject=EHR 2.0">SHAMIL</a>
   </div>
 
   <app-progress_card

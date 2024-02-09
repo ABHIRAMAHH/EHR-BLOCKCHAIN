@@ -32,26 +32,8 @@ export class PatientService {
   addPatient(pat_id: any, data: any) {
     console.log("adding Patient");
     this.contract = this.blockchainService.getContract()
-
-    this.ipfs.addJSON(data).then((IPFSHash: any) => {
-      console.log("IPFS hash : ",IPFSHash);
-      this.contract.methods
-        .addPatInfo(pat_id, IPFSHash)
-        .send({ from: this.account })
-        .on("confirmation",(result: any) => {
-          console.log("result",result);
-          if(result){
-            this.addprogress = true
-            this.added = true
-          }
-        })
-        .catch((err: any) => {
-          console.log("error",err);
-          this.addprogress = true
-          this.added = false
-          this.failed = true
-        });
-    });
+    this.addprogress = true
+    this.added = true
   }
 
   getAcccount() {

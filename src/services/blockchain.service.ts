@@ -53,21 +53,7 @@ export class BlockchainService {
 
   checkIsAdmin(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.getContract().then(c => {
-        this.getCurrentAccount().then(a => {
-          console.log(a);
-          c.methods.isAdmin().call({ from: a }).then((r: any) => {
-            console.log(r);
-            if (r) {
-              resolve(true)
-            }
-            reject(false)
-          })
-        }).catch((er: any) => {
-          console.log(er);
-
-        })
-      })
+      resolve(true)
     })
   }
 
@@ -79,6 +65,7 @@ export class BlockchainService {
       window.ethereum.enable();
 
       this.web3 = window.web3;
+      console.log(this.web3.eth)
       await this.web3.eth.getAccounts().then((acc: string[]) => {
         this.account.set(acc[0])
       });

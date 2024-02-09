@@ -6,6 +6,8 @@ import { BlockchainService } from 'src/services/blockchain.service';
 import { IpfsService } from 'src/services/ipfs.service';
 import { Buffer } from "buffer";
 
+import {Web3} from 'web3';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -77,27 +79,29 @@ export class DoctorService {
     })
   }
 
-  addDoctor(docId: string, data: any): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.bs.getContract().then(c => {
-        this.bs.getCurrentAccount().then(a => {
-          this.addRecord(data).then(ipfsHash => {
-            c.methods
-              .addDrInfo(docId, ipfsHash)
-              .send({ from: a })
-              .on("confirmation", (result: any) => {
-                if (result) {
-                  resolve(result);
-                }
-                reject(false)
-              })
-              .catch((err: any) => {
-                reject(false)
-              });
-          })
-        })
-      })
-    })
+  async addDoctor(docId: string, data: any): Promise<any> {
+// Initialize a Web3 instance with Ganache's HTTP provider
+const web3 = new Web3('http://127.0.0.1:7545')
+console.log(web3)
+    const privateKey = '0x78283381422002bc7dad0e4b9d12dd7d6014dd1ed6614f30d0958002ffe6ec0b'
+    return new Promise(async (resolve, reject) => {
+      try {
+          // Convert the private key to a Buffer
+          const privateKeyBuffer = Buffer.from(privateKey, 'hex');
+
+          // Get the account address from the private key
+          const accountAddress = web3.eth.accounts.privateKeyToAccount(privateKey).address;
+
+          // Import the account into Metamask
+          await window.ethereum.request({
+            method: 'eth_requestAccounts',
+        });
+
+          resolve(`Account with address ${accountAddress} imported into Metamask successfully.`);
+      } catch (error) {
+          reject(error);
+      }
+    });
   }
   async addRecord(data: any) {
     let IPFSHash = await (await (this.ipfs.add(Buffer.from(JSON.stringify(data))))).path

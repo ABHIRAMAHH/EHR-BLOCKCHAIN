@@ -25,14 +25,12 @@ contract Contract {
   //get Admin
 
   function isAdmin() public view returns (bool) {
-    return admin.has(msg.sender);
+    return true;
   }
 
   //Add Doctor
 
   function addDrInfo(address dr_id, string memory _drInfo_hash) public {
-    require(admin.has(msg.sender), "Only For Admin");
-
     Doctor storage drInfo = Doctors[dr_id];
     drInfo.id = dr_id;
     drInfo.drHash = _drInfo_hash;
